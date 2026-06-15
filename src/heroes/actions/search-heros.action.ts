@@ -7,7 +7,7 @@ interface Options {
     category?: string;
     universe?: string;
     status?: string;
-    strength?: string;
+    strength?: number;
 }
 
 const BASE_URL = import.meta.env.VITE_API_URL;

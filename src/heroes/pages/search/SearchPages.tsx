@@ -11,8 +11,10 @@ export const SearchPages = () => {
     const [searchParams] = useSearchParams();
 
     const nameHero = searchParams.get('name') ?? '';
+    const strength = Number(searchParams.get('strength') ?? '0');
 
-    const { data: searchHero } = useSearchHero(nameHero);
+
+    const { data: searchHero } = useSearchHero(nameHero, strength);
 
     return (
         <>
