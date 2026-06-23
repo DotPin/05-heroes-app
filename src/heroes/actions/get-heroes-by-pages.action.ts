@@ -7,7 +7,7 @@ export const getHeroesByPagesAction = async (
 
     page: number,
     limit: number = 6,
-    category: string = 'all,'
+    category: string = 'all'
 ): Promise<HeroesResponse> => {
 
     //valida ingreso válido de page en URL 

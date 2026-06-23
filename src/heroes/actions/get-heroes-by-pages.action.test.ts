@@ -50,9 +50,29 @@ describe('getHeroesByPageAction', () => {
 
         await getHeroesByPagesAction('abc' as unknown as number);
 
-        const request = heroesApiMock.history;
-
-        console.log(request);
+        //Posible técnica de scraping
+        const params = heroesApiMock.history.get[0].params;
+        expect(params).toStrictEqual({ limit: 6, offset: 0, category: 'all' });
 
     });
+
+    test('should the api with correct params/IP/{UNAME}', async () => {
+        const responseObject = {
+            total: 10,
+            pages: 1,
+            heroes: [],
+        }
+
+        heroesApiMock.onGet('/').reply(200, responseObject);
+        heroesApiMock.resetHistory();
+
+        await getHeroesByPagesAction(2, 10, 'heroes');
+
+        const params = heroesApiMock.history.get[0].params;
+
+        //MODEL: expect.(params).toStrictEqual({limit: 10, offset: 0, category: 'favorites'});
+        expect(params).toStrictEqual({ limit: 10, offset: 10, category: 'heroes' });
+
+    });
+
 })
