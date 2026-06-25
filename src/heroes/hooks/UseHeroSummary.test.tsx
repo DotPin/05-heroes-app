@@ -1,8 +1,19 @@
 import type { PropsWithChildren } from "react";
-import { describe, expect, test } from "vitest";
-import { renderHook } from '@testing-library/react'
+import { describe, expect, test, vi } from "vitest";
+import { renderHook, waitFor } from '@testing-library/react'
 import { useHeroSummary } from "./useHeroSummary";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { getSummaryAction } from "../actions/get-summary.actions";
+import type { SummaryInformationResponse } from "../types/summary-information.response";
+
+
+//Vista HTML de método
+vi.mock('../actions/get-summary.actions', () => ({
+    getSummaryAction: vi.fn(),
+}));
+
+
+const mockGetSummaryAction = vi.mocked(getSummaryAction);
 
 const tanStackCustomProvider = () => {
 
@@ -24,8 +35,8 @@ describe('useHeroSummary', () => {
     test('should return the initial state (isLoading)', () => {
 
         const { result } = renderHook(() => useHeroSummary(), {
-            wrapper: tanStackCustomProvider()
-        })
+            wrapper: tanStackCustomProvider(),
+        });
 
 
         //console.log(result.current)
@@ -34,6 +45,37 @@ describe('useHeroSummary', () => {
         expect(result.current.data).toBe(undefined)
         expect(result.current.data).toBeUndefined();
 
+    });
+
+    test('should return success state with data when API call succeeds', async () => {
+
+        const mockSummaryData = {
+            totalHeroes: 10,
+            strongestHero: {
+                id: '1',
+                name: 'Batman'
+            },
+            smartestHero: {
+                id: '2',
+                name: 'Batman'
+            },
+            heroCount: 20,
+            villainCount: 7
+        } as SummaryInformationResponse;
+
+        //Genera data sintética en Front
+        mockGetSummaryAction.mockResolvedValue(mockSummaryData);
+
+        const { result } = renderHook(() => useHeroSummary(), {
+            wrapper: tanStackCustomProvider()
+        })
+
+        await waitFor(() => {
+            expect(result.current.isSuccess).toBe(true);
+        })
+
+        expect(result.current.isError).toBe(false);
+        expect(mockGetSummaryAction).toHaveBeenCalled();
     })
 
 });
