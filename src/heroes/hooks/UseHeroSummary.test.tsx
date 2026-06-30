@@ -39,7 +39,6 @@ describe('useHeroSummary', () => {
         });
 
 
-        //console.log(result.current)
         expect(result.current.isLoading).toBe(true);
         expect(result.current.isError).toBe(false);
         expect(result.current.data).toBe(undefined)
@@ -74,8 +73,34 @@ describe('useHeroSummary', () => {
             expect(result.current.isSuccess).toBe(true);
         })
 
+        console.log(result.current);
+
         expect(result.current.isError).toBe(false);
         expect(mockGetSummaryAction).toHaveBeenCalled();
     })
+
+    test('should return error state when API call fails', async () => {
+
+        const mockError = new Error('Failed to fetch summary');
+
+        mockGetSummaryAction.mockRejectedValue(mockError);
+
+        //sintetiza una petición http:
+        const { result } = renderHook(() => useHeroSummary(), {
+            wrapper: tanStackCustomProvider(),
+        });
+
+        //Prueba y revisa los estados de la petición http
+        await waitFor(() => {
+            expect(result.current.isError).toBe(true);
+        })
+
+        expect(result.current.error).toBeDefined()
+        expect(result.current.isLoading).toBe(false);
+        expect(mockGetSummaryAction).toHaveBeenCalled();
+        expect(result.current.error?.message).toBe('Failed to fetch summary');
+
+
+    });
 
 });
