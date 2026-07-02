@@ -73,8 +73,6 @@ describe('useHeroSummary', () => {
             expect(result.current.isSuccess).toBe(true);
         })
 
-        console.log(result.current);
-
         expect(result.current.isError).toBe(false);
         expect(mockGetSummaryAction).toHaveBeenCalled();
     })
