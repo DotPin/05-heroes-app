@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { beforeEach, describe, expect, test } from "vitest";
 import {
     FavoriteHeroContext,
     FavoriteHeroProvider
@@ -14,7 +14,7 @@ import type { Hero } from "../types/hero.interface";
 
 const mockHero = {
     id: '1',
-    name: 'batman,'
+    name: 'batman'
 } as Hero;
 
 //se crea un componente que requiera renderización
@@ -61,6 +61,10 @@ const renderContextTest = () => {
 
 describe('FavoriteHeroContext', () => {
 
+    beforeEach(() => {
+        localStorage.clear();
+    })
+
     test('should intialize with defaul values', () => {
         renderContextTest();
 
@@ -79,13 +83,34 @@ describe('FavoriteHeroContext', () => {
         const button = screen.getByTestId('toggle-favorite');
 
         fireEvent.click(button);
-        //screen.debug()
+        //screen.debug();
 
         //console.log(localStorage.getItem('favorites'));
         expect(screen.getByTestId('is-favorite').textContent).toBe('true');
-        expect(screen.getByTestId('hero-1').textContent).toBe('batman,');
+        expect(screen.getByTestId('favorite-count').textContent).toBe('1');
+        expect(screen.getByTestId('hero-1').textContent).toBe('batman');
         expect(localStorage.getItem('favorites')).toBe(
-            '[{"id":"1","name":"batman,"}]'
+            '[{"id":"1","name":"batman"}]'
         );
-    })
+    });
+
+    test('should add hero to favorite wnen toggleFavorite is called with another false', () => {
+
+        localStorage.setItem('favorites', JSON.stringify([mockHero]));
+
+        //renderización en bruto
+        renderContextTest();
+        expect(screen.getByTestId('favorite-count').textContent).toBe('1');
+        expect(screen.getByTestId('is-favorite').textContent).toBe('true');
+        expect(screen.getByTestId('hero-1').textContent).toBe('batman');
+
+        //actualiza con data con evento de botón
+        const button = screen.getByTestId('toggle-favorite');
+        fireEvent.click(button);
+        //screen.debug();
+
+        expect(screen.getByTestId('favorite-count').textContent).toBe('0');
+        expect(screen.getByTestId('is-favorite').textContent).toBe('false');
+        expect(screen.queryByTestId('hero-1')).toBeNull();
+    });
 })
