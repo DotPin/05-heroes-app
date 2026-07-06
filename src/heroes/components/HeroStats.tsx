@@ -11,12 +11,11 @@ export const HeroStats = () => {
 
     const { data: summary } = useHeroSummary();
 
-    // const { data: summary } = useQuery({
-    //     queryKey: ['summary-information'],
-    //     queryFn: getSummaryAction,
-    //     staleTime: 1000 * 60 * 5
-    // });
     const { favoriteCount } = use(FavoriteHeroContext)
+
+    if (!summary) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
