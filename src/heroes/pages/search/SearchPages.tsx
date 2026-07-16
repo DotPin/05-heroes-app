@@ -10,8 +10,8 @@ export const SearchPages = () => {
 
     const [searchParams] = useSearchParams();
 
-    const nameHero = searchParams.get('name') ?? '';
-    const strength = Number(searchParams.get('strength') ?? '0');
+    const nameHero = searchParams.get('name') ?? undefined;
+    const strength = Number(searchParams.get('strength') ?? undefined);
 
 
     const { data: searchHero } = useSearchHero(nameHero, strength);
