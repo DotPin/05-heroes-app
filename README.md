@@ -9,8 +9,8 @@
 
 ## Proyecto funciona con backend.
 
-* Clonar repositorio del backend [Heroes Backend](git@github.com:DotPin/06-nest-heroes-backend.git).
-* Iniciar servicio posterior al FrontEnd
+* Clonar repositorio del backend [Heroes Backend](https://github.com/DotPin/06-nest-heroes-backend).
+* Iniciar servicio posterior antes del FrontEnd
 	* $npm run start:dev
 
 ## Proyecto Visto Online:
