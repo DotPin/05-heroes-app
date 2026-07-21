@@ -15,4 +15,5 @@
 
 ## Proyecto Visto Online:
 
-* [Heroes App](https://dotpin.github.io/05-heroes-app/)
+* [Heroes App from Github](https://dotpin.github.io/05-heroes-app/)
+* [Heroes App from Netlify](https://tangerine-croissant-b0629e.netlify.app/)
