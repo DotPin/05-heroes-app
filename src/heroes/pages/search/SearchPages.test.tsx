@@ -50,54 +50,54 @@ describe('SearchPageTest', () => {
 
     test('should render SearchPage with default values ', () => {
 
-        const { containter } = renderSearchPage();
+        const { container } = renderSearchPage();
 
         expect(mockSearchHeroesAction).toHaveBeenCalledWith({
             name: "",
-            strength: NaN,
+            strength: 0,
         });
 
-        expect(containter).toMatchSnapshot();
+        expect(container).toMatchSnapshot();
     });
 
     test('should call search action with name parameter', () => {
 
-        const { containter } = renderSearchPage(['/search?name=superman']);
+        const { container } = renderSearchPage(['/search?name=superman']);
 
         expect(mockSearchHeroesAction).toHaveBeenCalledWith({
             name: 'superman',
-            strength: NaN,
+            strength: 0,
         });
 
-        expect(containter).toMatchSnapshot();
+        expect(container).toMatchSnapshot();
 
 
     });
 
     test('should call search action with strength parameter', () => {
 
-        const { containter } = renderSearchPage(['/search?strength=10']);
+        const { container } = renderSearchPage(['/search?strength=10']);
 
         expect(mockSearchHeroesAction).toHaveBeenCalledWith({
             name: "",
             strength: 10,
         });
 
-        expect(containter).toMatchSnapshot();
+        expect(container).toMatchSnapshot();
 
 
     });
 
     test('should call search action with strength and name parameter', () => {
 
-        const { containter } = renderSearchPage(['/search?name=batman&strength=6']);
+        const { container } = renderSearchPage(['/search?name=batman&strength=6']);
 
         expect(mockSearchHeroesAction).toHaveBeenCalledWith({
             name: 'batman',
             strength: 6,
         });
 
-        expect(containter).toMatchSnapshot();
+        expect(container).toMatchSnapshot();
 
     });
 

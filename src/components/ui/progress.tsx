@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 
 interface ProgressProps
   extends React.ComponentProps<typeof ProgressPrimitive.Root> {
-  activeColor: string
+  activeColor?: string
 }
 
 

@@ -1,41 +1,51 @@
-import { Link, useLocation } from "react-router"
+import { Link, useLocation } from "react-router";
 import { cn } from "@/lib/utils";
 import {
     NavigationMenu,
-    navigationMenuTriggerStyle,
-    NavigationMenuList,
     NavigationMenuItem,
     NavigationMenuLink,
+    NavigationMenuList,
+    navigationMenuTriggerStyle,
 } from "../ui/navigation-menu";
 
 export const CustomMenu = () => {
-
     const { pathname } = useLocation();
 
-    const isActive = (path: string) => {
-        return pathname === path;
-    }
+    const isActive = (path: string) => pathname === path;
 
     return (
         <NavigationMenu className="py-5">
             <NavigationMenuList>
-                {/* Home */}
+
                 <NavigationMenuItem>
-                    <NavigationMenuLink
-                        className={navigationMenuTriggerStyle()}
-                        render={<Link to="/" >Inicio</Link>}>
+                    <NavigationMenuLink asChild>
+                        <Link
+                            to="/"
+                            className={cn(
+                                navigationMenuTriggerStyle(),
+                                isActive("/") && "bg-slate-200"
+                            )}
+                        >
+                            Inicio
+                        </Link>
                     </NavigationMenuLink>
                 </NavigationMenuItem>
 
-                {/* Search */}
                 <NavigationMenuItem>
-                    <NavigationMenuLink
-                        className={cn(isActive("/search") && "bg-slate-200 rounded-md", "p-2")}
-                        render={<Link to="/search" >Buscar SuperHeroes</Link>}>
+                    <NavigationMenuLink asChild>
+                        <Link
+                            to="/search"
+                            className={cn(
+                                navigationMenuTriggerStyle(),
+                                isActive("/search") && "bg-slate-200"
+                            )}
+                        >
+                            Buscar SuperHeroes
+                        </Link>
                     </NavigationMenuLink>
                 </NavigationMenuItem>
 
             </NavigationMenuList>
         </NavigationMenu>
-    )
-}
+    );
+};

@@ -7,7 +7,7 @@ if (typeof window.ResizeObserver === 'undefined') {
     class ResizeObserver {
         observe() { }
         unobserve() { }
-        disconect() { }
+        disconnect() { }
     }
     window.ResizeObserver = ResizeObserver;
 }
@@ -22,9 +22,9 @@ const renderWithRouter = (initialEntries: string[] = ['/']) => {
 
 describe('SearchControlTest', () => {
     test('should render SearchControls with default values', () => {
-        const { containter } = renderWithRouter();
+        const { container } = renderWithRouter();
 
-        expect(containter).toMatchSnapshot();
+        expect(container).toMatchSnapshot();
     });
 
     test('should set input value when search param name is set', () => {

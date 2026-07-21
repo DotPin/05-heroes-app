@@ -128,10 +128,10 @@ describe('HeroStats', () => {
     // });
 
     test('should render component with default values', () => {
-        const { containter } = renderHeroStats();
+        const { container } = renderHeroStats();
 
         expect(screen.getByText('Loading...')).toBeDefined();
-        expect(containter).toMatchSnapshot();
+        expect(container).toMatchSnapshot();
     });
 
     test('should render HeroStats with mock information', () => {

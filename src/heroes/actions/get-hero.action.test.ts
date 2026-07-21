@@ -3,11 +3,12 @@ import { getHeroAction } from "./get-hero.Action";
 
 
 describe('getHeroAction', () => {
+
     test('should fetch hero data and return with complete image url', async () => {
         const resultado = await getHeroAction('clark-kent');
 
         expect(resultado.image).toContain('http');
-        expect(resultado).toStrictEqual;
+        expect(resultado).toBeDefined();
     });
 
     test('should throw an error if hero is not found', async () => {
